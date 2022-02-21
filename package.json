@@ -1,0 +1,21 @@
+{
+  "name": "graphql-odev-1",
+  "version": "1.0.0",
+  "description": "Patika.dev üzerinden almakta oldğum. \"GraphQL\" modülünün, \"Giriş\" bölümünün, birinci (Ödev 1) ödevidir.",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon index.js"
+  },
+  "keywords": [
+    "graphql",
+    "apollo-server",
+    "patika-dev"
+  ],
+  "author": "Muhammed Mustafa ÖZBAY",
+  "license": "MIT",
+  "dependencies": {
+    "apollo-server": "^3.6.3",
+    "apollo-server-core": "^3.6.3",
+    "graphql": "^16.3.0"
+  }
+}
