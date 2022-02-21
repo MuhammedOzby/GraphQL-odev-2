@@ -1,184 +1,151 @@
-# Ödev 1
+# Ödev 2
 
-Kullanıcılar, etkinlikler, etkinliklerin yapılacağı konum ve etkinlik katılımcılarını size sağlanan veri seti üzerinden görüntüleyebilecek bir GraphQL sunucu oluşturmanız gerekiyor.
+Bu ödevde göreviniz, tüm tiplerle alakalı oluşturma, güncelleme, silme ve tümünü silme Mutation'larını hazırlamak olacak.
 
 ## Gereksinimler
 
-- [Şuradaki](https://github.com/Kodluyoruz/taskforce/blob/main/graphql/odev-01/data.json) veri seti kullanılarak bir GraphQL sunucusu ayağa kaldırılmalıdır.
-- Temel olarak `User`, `Event`, `Location` ve `Participant` tiplerini oluşturmalısınız. Bu tiplerle alakalı fieldları veri seti üzerinden görüntüleyebilirsiniz.
-- Bir `User`'a ait bir veya birden fazla `Event` olabilir.
-- Bir `Event`, bir `User` ile ilişkili olmalıdır.
-- Bir `Event`, bir `Location` ile ilişkili olmalıdır.
-- Bir `Event` birden fazla `Participant` ile ilişkili olmalıdır.
-- Tüm tipler üzerinde tümünü listeleme ve id bazlı bir kaydı getirme Query'leri yazılmalıdır.
+- Yeni bir `User` ekleyecek Mutation yazılmalıdır.
+- Bir `User`'ı güncelleyecek olan Mutation yazılmalıdır.
+- Bir `User`'ı silecek olan Mutation yazılmalıdır.
+- Tüm `User`'ları silecek olan Mutation yazılmalıdır.
+- Yukarıdaki maddeler `Event`, `Location` ve `Participant` için de uygulanmalıdır.
 
-Günün sonunda aşağıdaki Query'ler çalışır vaziyette olmalıdır.
+Günün sonunda aşağıdaki Mutation'lar çalışır vaziyette olmalıdır.
 
 ```graphQL
-query users{}
-query user(id: 1){}
+  mutation addUser
+  mutation updateUser
+  mutation deleteUser
+  mutation deleteAllUsers
 
-query events{}
-query event(id: 1){}
-query events{
-  id
-  title
-  user{
-    id
-    username
-  }
-  pariticipants{
-    id
-    username
-  }
-  location{
-    id
-    name
-  }
-}
+  mutation addEvent
+  mutation updateEvent
+  mutation deleteEvent
+  mutation deleteAllEvents
 
-query locations{}
-query location(id: 1){}
+  mutation addLocation
+  mutation updateLocation
+  mutation deleteLocation
+  mutation deleteAllLocations
 
-query participants{}
-query participant(id: 1){}
+  mutation addParticipant
+  mutation updateParticipant
+  mutation deleteParticipant
+  mutation deleteAllParticipants
 ```
 
 ***
 
 ## Yapılan testler
 
-Yukarıda belirtilen queryler şu şekilde çalıştırılmıştır:
+### User üzerindeki Mutation testleri
 
 ```graphQL
-query getAllUsers {
-  Users {
+mutation addUser {
+  addUser(data: { username: "asdasd", email: "fsdljhgsdfg" }) {
+    id
+  }
+}
+
+mutation updateUser {
+  updateUser(data: { id: "7", email: "fsdljhgsdfg" }) {
     id
     username
     email
-    events {
-      title
-      desc
-    }
   }
 }
 
-query getUser {
-  User(id: "1") {
+mutation deleteUser {
+  deleteUser(id: "7")  {
     id
     username
     email
-    events {
-      title
-      desc
-    }
   }
 }
 
-query getAllEvents {
-  Events {
+mutation deleteAllUsers {
+  deleteAllUsers(interact: "i agree")
+}
+```
+
+### Event üzerindeki Mutation testleri
+
+```graphQL
+mutation addEvent {
+  addEvent(data: { title:"dskjfhksfjhg" }) {
+    id
+  }
+}
+
+mutation updateEvent {
+  updateEvent(data: { id: "3", title:"asdasdasdsasa"}) {
     id
     title
-    desc
-    date
-    from
-    to
-    location_id
-    user_id
-    user {
-      id
-      username
-      email
-      events {
-        title
-        desc
-      }
-    }
-    location {
-      id
-      name
-      desc
-      lat
-      lng
-    }
-    participants {
-      id
-      user {
-        username
-      }
-    }
   }
 }
 
-query getEvent {
-  Event(id: "1") {
+mutation deleteEvent {
+  deleteEvent(id: "7")  {
     id
-    title
-    desc
-    date
-    from
-    to
-    location_id
-    user_id
-    user {
-      id
-      username
-      email
-      events {
-        title
-        desc
-      }
-    }
-    location {
-      id
-      name
-      desc
-      lat
-      lng
-    }
-    participants {
-      id
-      user {
-        username
-      }
-    }
   }
 }
 
-query getAllLocations {
-  Locations {
+mutation deleteAllEvents {
+  deleteAllEvents(interact: "i agree")
+}
+```
+
+### Location üzerindeki Mutation testleri
+
+```graphQL
+mutation addLocation {
+  addLocation(data: { name:"dskjfhksfjhg" }) {
+    id
+  }
+}
+
+mutation updateLocation {
+  updateLocation(data: { id: "293bf89e-7193-4aa6-8177-3f2990e1e060", name:"asdasdasdsasa"}) {
+    id
     name
-    desc
-  }
-}
-query getLocation {
-  Location(id: "1") {
-    name
-    desc
   }
 }
 
-query getAllParticipants {
-  Participants {
+mutation deleteLocation {
+  deleteLocation(id: "293bf89e-7193-4aa6-8177-3f2990e1e060")  {
     id
-    user {
-      username
-    }
-    event {
-      title
-    }
-  }
-}
-query getParticipant {
-  Participant(id: "1") {
-    id
-    user {
-      username
-    }
-    event {
-      title
-    }
   }
 }
 
+mutation deleteAllLocations {
+  deleteAllLocations(interact: "i agree")
+}
+```
+
+### Participant üzerindeki Mutation testleri
+
+```graphQL
+mutation addParticipant {
+  addParticipant(data: { user_id:"3",event_id:"3" }) {
+    id
+  }
+}
+
+mutation updateParticipant {
+  updateParticipant(data: { id: "11d44372-5d6d-4860-a99d-ad408468d4b4", user_id:"asdasdasdsasa"}) {
+    id
+    user_id
+  }
+}
+
+mutation deleteParticipant {
+  deleteParticipant(id: "11d44372-5d6d-4860-a99d-ad408468d4b4")  {
+    id
+    user_id
+  }
+}
+
+mutation deleteAllParticipants {
+  deleteAllParticipants(interact: "i agree")
+}
 ```

@@ -16,6 +16,7 @@
   "dependencies": {
     "apollo-server": "^3.6.3",
     "apollo-server-core": "^3.6.3",
-    "graphql": "^16.3.0"
+    "graphql": "^16.3.0",
+    "uuidv4": "^6.2.12"
   }
 }
